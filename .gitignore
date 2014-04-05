@@ -1,0 +1,8 @@
+*.ipr
+*.iml
+*.class
+*.jar
+.idea/*
+out/*
+bin/*
+.classpath
