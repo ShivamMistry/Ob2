@@ -4,9 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.jar.JarEntry;
@@ -22,6 +20,25 @@ public class ClassStore {
 
     public ClassStore() {
         store = new HashMap<>();
+    }
+
+    public void init(File[] classFiles, boolean recursive) throws IOException {
+        for (File file : classFiles) {
+            if (file.getName().endsWith(".class")) {
+                try {
+                    FileInputStream in = new FileInputStream(file);
+                    ClassReader reader = new ClassReader(in);
+                    ClassNode cn = new ClassNode();
+                    reader.accept(cn, ClassReader.SKIP_FRAMES);
+                    store.put(cn.name, cn);
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else if (recursive && file.isDirectory()) {
+                init(file.listFiles(), recursive);
+            }
+        }
     }
 
     public void init(JarInputStream jarIn, File output) throws IOException {
