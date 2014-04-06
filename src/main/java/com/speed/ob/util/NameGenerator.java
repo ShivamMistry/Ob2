@@ -2,6 +2,9 @@ package com.speed.ob.util;
 
 import java.util.Random;
 
+/**
+ * See LICENSE.txt for license info
+ */
 public class NameGenerator {
 
     private int order;

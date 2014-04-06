@@ -8,7 +8,7 @@ import org.junit.runners.JUnit4;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by shivam on 06/04/14.
+ * See LICENSE.txt for license info
  */
 @RunWith(JUnit4.class)
 public class NameGenTest {

@@ -3,7 +3,7 @@ package com.speed.ob;
 import org.apache.commons.cli.*;
 
 /**
- * Created by shivam on 05/04/14.
+ * See LICENSE.txt for license info
  */
 public class Obfuscator {
     public static void main(String[] args) {
