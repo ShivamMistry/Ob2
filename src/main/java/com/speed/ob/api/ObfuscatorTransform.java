@@ -1,5 +1,7 @@
 package com.speed.ob.api;
 
+import com.speed.ob.Config;
+
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -16,7 +18,7 @@ public abstract class ObfuscatorTransform {
         this.LOGGER = Logger.getLogger(this.getClass().getName());
     }
 
-    public abstract void run(ClassStore store);
+    public abstract void run(ClassStore store, Config config);
 
     public abstract void results();
 
