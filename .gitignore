@@ -6,3 +6,4 @@
 out/*
 bin/*
 .classpath
+logs/*

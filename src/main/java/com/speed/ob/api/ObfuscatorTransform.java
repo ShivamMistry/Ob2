@@ -13,9 +13,11 @@ import java.util.logging.Logger;
 public abstract class ObfuscatorTransform {
 
     protected final Logger LOGGER;
+    protected final Config config;
 
-    public ObfuscatorTransform() {
+    public ObfuscatorTransform(final Config config) {
         this.LOGGER = Logger.getLogger(this.getClass().getName());
+        this.config = config;
     }
 
     public abstract void run(ClassStore store, Config config);

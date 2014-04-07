@@ -46,7 +46,7 @@ public class Config {
 
     public Config(String fileName) throws IOException {
         Properties props = new Properties();
-        props.putAll(DEFAULT_CONFIG);
+        properties = new Properties(DEFAULT_CONFIG);
         File file = new File(fileName);
         if (!file.exists() || file.isDirectory()) {
             throw new IOException("File could not be found " + file.getName());
@@ -57,6 +57,7 @@ public class Config {
         } else {
             props.load(fis);
         }
+        fis.close();
         properties.putAll(props);
     }
 
