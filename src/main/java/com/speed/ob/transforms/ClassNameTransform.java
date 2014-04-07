@@ -49,22 +49,6 @@ public class ClassNameTransform extends ObfuscatorTransform implements Opcodes {
         LOGGER.finer("Keeping packages:" + keepPackages);
     }
 
-    public void fixMethodAccess(ClassStore store) {
-        for (ClassNode node : store.nodes()) {
-            if (excludedClasses.contains(node.name)) {
-                continue;
-            }
-            if ((node.access & ACC_PUBLIC) == 0) {
-                node.access |= ACC_PUBLIC;
-            }
-            for (MethodNode mn : (List<MethodNode>) node.methods) {
-                if ((mn.access & ACC_PUBLIC) == 0) {
-                    mn.access |= ACC_PUBLIC;
-                }
-            }
-        }
-    }
-
     public void run(ClassStore store, Config config) {
         //generate map of old names -> new names
         outer:
