@@ -70,31 +70,34 @@ public class ClassNameTransform extends ObfuscatorTransform implements Opcodes {
         outer:
         for (ClassNode node : store.nodes()) {
             LOGGER.fine("Processing class: " + node.name);
-            /*if (excludeMains) {
+            boolean hasMain = false;
+            if (excludeMains) {
                 for (MethodNode mn : (List<MethodNode>) node.methods) {
                     if (mn.name.equals("main") && mn.desc.equals("([Ljava/lang/String;)V")) {
                         LOGGER.fine("Not renaming " + node.name + ", has a main method");
-                        continue outer;
+                        //continue outer;
+                        hasMain = true;
+                        break;
                     }
                 }
-            }      */
+            }
             if (excludedClasses != null && excludedClasses.contains(node.name)) {
                 LOGGER.fine("Not renaming " + node.name + ", is excluded");
                 continue;
             }
             String newName;
             int ind = node.name.lastIndexOf('/');
-            if (!excludeMains) {
-                if (keepPackages && ind > -1) {
-                    newName = node.name.substring(0, ind) + '/' + nameGenerator.next();
-                } else {
-                    newName = nameGenerator.next();
-                }
-            } else {
+            if (excludeMains && hasMain) {
                 if (ind > -1) {
                     newName = node.name.substring(ind + 1);
                 } else {
                     newName = node.name;
+                }
+            } else {
+                if (keepPackages && ind > -1) {
+                    newName = node.name.substring(0, ind) + '/' + nameGenerator.next();
+                } else {
+                    newName = nameGenerator.next();
                 }
             }
 
