@@ -51,7 +51,6 @@ public class ClassNameTransform extends ObfuscatorTransform implements Opcodes {
 
     public void run(ClassStore store, Config config) {
         //generate map of old names -> new names
-        outer:
         for (ClassNode node : store.nodes()) {
             LOGGER.fine("Processing class: " + node.name);
             boolean hasMain = false;

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -127,4 +128,25 @@ public class Config {
         properties.setProperty(key, value);
 
     }
+
+	public Config derive(Class<?> clazz) {
+		String canonical = clazz.getCanonicalName();
+		if(canonical == null) {
+			return deriveFull(clazz.getName());
+		}
+		return deriveFull(canonical);
+	}
+
+	protected Config deriveFull(String canonical) {
+		Properties props = new Properties();
+		for(Object key : properties.keySet()) {
+			if(key.toString().startsWith(canonical + ".")) {
+				props.setProperty(key.toString().replace(canonical + ".", ""),
+						properties.getProperty(key.toString()));
+			}
+		}
+		Config config = new Config();
+		config.properties = props;
+		return config;
+	}
 }
